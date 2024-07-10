@@ -32,8 +32,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -55,96 +54,94 @@ android {
         schemaDirectory("$projectDir/schemas")
     }
 
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
         }
     }
-}
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation(libs.androidx.activity.compose)
+        implementation(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.ui)
+        implementation(libs.androidx.ui.graphics)
+        implementation(libs.androidx.ui.tooling.preview)
+        implementation(libs.androidx.material3)
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+        // Icons
+        implementation(libs.androidx.material.icons.extended)
 
-    // Icons
-    implementation(libs.androidx.material.icons.extended)
+        // Camera
+        implementation(libs.androidx.camera.core)
+        implementation(libs.androidx.camera.camera2)
+        implementation(libs.androidx.camera.lifecycle)
+        implementation(libs.androidx.camera.view)
+        implementation(libs.androidx.camera.extensions)
 
-    // Camera
-    implementation(libs.androidx.camera.core)
-    implementation(libs.androidx.camera.camera2)
-    implementation(libs.androidx.camera.lifecycle)
-    implementation(libs.androidx.camera.view)
-    implementation(libs.androidx.camera.extensions)
+        // Jetpack Navigation
+        implementation(libs.androidx.navigation.fragment.ktx)
+        implementation(libs.androidx.navigation.ui.ktx)
+        implementation(libs.androidx.navigation.compose)
 
-    // Jetpack Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.compose)
+        // Hilt
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.android.compiler)
+        // Hilt Compose Navigation support (hiltViewModel factory)
+        implementation(libs.androidx.hilt.navigation.compose)
 
-    // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-    // Hilt Compose Navigation support (hiltViewModel factory)
-    implementation(libs.androidx.hilt.navigation.compose)
+        // Room
+        implementation(libs.androidx.room.runtime)
+        annotationProcessor(libs.androidx.room.compiler)
+        implementation(libs.androidx.room.ktx)
+        ksp(libs.androidx.room.compiler)
 
-    // Room
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
+        // Retrofit
+        implementation(libs.retrofit)
+        implementation(libs.retrofit2.kotlinx.serialization.converter)
 
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
+        // OkHttp
+        implementation(libs.okhttp)
+        implementation(libs.logging.interceptor)
+        testImplementation(libs.mockwebserver)
 
-    // OkHttp
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-    testImplementation(libs.mockwebserver)
+        // KotlinX Serialization
+        implementation(libs.kotlinx.serialization.json)
 
-    // KotlinX Serialization
-    implementation(libs.kotlinx.serialization.json)
+        // Coil
+        implementation(libs.coil.compose)
 
-    // Coil
-    implementation(libs.coil.compose)
-
-    // DataStore
-    implementation(libs.androidx.datastore)
-
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.auth)
+        // DataStore
+        implementation(libs.androidx.datastore)
 
 
-    /*
-     * Testing
-     */
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+
+        /*
+         * Testing
+         */
+        testImplementation(libs.junit)
+        androidTestImplementation(libs.androidx.junit)
+        androidTestImplementation(libs.androidx.espresso.core)
+        androidTestImplementation(platform(libs.androidx.compose.bom))
+        androidTestImplementation(libs.androidx.ui.test.junit4)
+        debugImplementation(libs.androidx.ui.tooling)
+        debugImplementation(libs.androidx.ui.test.manifest)
 
 
-    testImplementation(libs.kotest.assertions.core)
+        testImplementation(libs.kotest.assertions.core)
 
-    testImplementation(libs.mockk)
-    testImplementation(libs.mockk.android)
-    androidTestImplementation(libs.mockk)
-    androidTestImplementation(libs.mockk.android)
+        testImplementation(libs.mockk)
+        testImplementation(libs.mockk.android)
+        androidTestImplementation(libs.mockk)
+        androidTestImplementation(libs.mockk.android)
 
-    testImplementation(libs.kotlinx.coroutines.test)
+        testImplementation(libs.kotlinx.coroutines.test)
 
-    testImplementation(libs.core.ktx)
-    testImplementation(libs.androidx.junit.ktx)
+        testImplementation(libs.core.ktx)
+        testImplementation(libs.androidx.junit.ktx)
+    }
 }
