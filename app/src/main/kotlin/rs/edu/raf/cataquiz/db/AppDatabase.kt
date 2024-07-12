@@ -12,7 +12,7 @@ import rs.edu.raf.cataquiz.quiz.db.QuizResultDao
 
 @Database(
     entities = [Cat::class, Image::class, QuizResult::class],
-    version = 4,
+    version = 5,
     exportSchema = true,
 )
 abstract class AppDatabase : RoomDatabase() {

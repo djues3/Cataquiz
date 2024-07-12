@@ -2,6 +2,7 @@ package rs.edu.raf.cataquiz.catinfo.db.image
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import rs.edu.raf.cataquiz.catinfo.db.cat.Cat
 
@@ -12,6 +13,9 @@ import rs.edu.raf.cataquiz.catinfo.db.cat.Cat
         childColumns = ["catId"],
         onDelete = ForeignKey.CASCADE,
     )],
+    indices = [
+        Index("catId"),
+    ],
 )
 data class Image(
     @PrimaryKey val id: String,

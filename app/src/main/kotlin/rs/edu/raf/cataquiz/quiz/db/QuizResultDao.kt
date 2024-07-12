@@ -19,4 +19,7 @@ interface QuizResultDao {
 
     @Query("SELECT * FROM QuizResult")
     fun observeAllQuizResults(): Flow<List<QuizResult>>
+
+    @Query("SELECT * FROM QuizResult ORDER BY timestamp DESC LIMIT 1")
+    fun getLatestQuizResult(): QuizResult
 }

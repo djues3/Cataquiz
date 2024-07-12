@@ -18,6 +18,7 @@ import rs.edu.raf.cataquiz.catinfo.list.catList
 import rs.edu.raf.cataquiz.profile.ProfileStore
 import rs.edu.raf.cataquiz.profile.create.createProfile
 import rs.edu.raf.cataquiz.quiz.play.quiz
+import rs.edu.raf.cataquiz.quiz.result.results
 
 @Composable
 fun CataquizNavigation(
@@ -61,7 +62,7 @@ fun CataquizNavigation(
         }, onNavigateToResults = {
             navController.navigate("results")
         }, navController = navController)
-
+        results(route = "results", navController = navController)
     }
 }
 
@@ -88,9 +89,5 @@ object NavigationActions {
 
     fun NavController.navigateToQuiz() {
         navigate(Screen.Quiz.route)
-    }
-
-    fun NavController.navigateUp() {
-        this.navigateUp()
     }
 }

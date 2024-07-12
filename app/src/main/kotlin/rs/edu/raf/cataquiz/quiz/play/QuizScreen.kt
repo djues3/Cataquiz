@@ -33,7 +33,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import coil.compose.SubcomposeAsyncImage
-import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizEvent.TimeUp
+import rs.edu.raf.cataquiz.quiz.MaxTime
+import rs.edu.raf.cataquiz.quiz.QuizContract
+import rs.edu.raf.cataquiz.quiz.QuizContract.QuizEvent.TimeUp
 import rs.edu.raf.cataquiz.quiz.model.questionText
 import rs.edu.raf.cataquiz.ui.theme.EnableEdgeToEdge
 
@@ -96,7 +98,7 @@ fun QuizScreen(
 
                 if (timeLeft <= 0) {
                     viewModel.setEvent(TimeUp)
-                    navController.navigate("cats") {
+                    navController.navigate("results") {
                         popUpTo("quiz") { inclusive = true }
                     }
                 }

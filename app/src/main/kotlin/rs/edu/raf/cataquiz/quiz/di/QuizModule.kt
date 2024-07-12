@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import rs.edu.raf.cataquiz.catinfo.repository.CatRepository
 import rs.edu.raf.cataquiz.db.AppDatabase
+import rs.edu.raf.cataquiz.quiz.api.LeaderboardApi
 import rs.edu.raf.cataquiz.quiz.play.QuestionGenerator
 import rs.edu.raf.cataquiz.quiz.play.QuizRepository
 import rs.edu.raf.cataquiz.quiz.play.QuizUseCase
@@ -30,7 +31,7 @@ object QuizModule {
 
     @Provides
     @Singleton
-    fun provideQuizRepository(database: AppDatabase): QuizRepository {
-        return QuizRepository(database)
+    fun provideQuizRepository(database: AppDatabase, leaderboardApi: LeaderboardApi): QuizRepository {
+        return QuizRepository(database, leaderboardApi)
     }
 }

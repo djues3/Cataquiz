@@ -26,7 +26,7 @@ class QuestionGenerator @Inject constructor(
         var cats = catRepository.getRandomCatWithImages(4)
         while (true) {
             if (!cats.any { it.images.isEmpty() }) {
-                break;
+                break
             }
             cats = catRepository.getRandomCatWithImages(4)
         }

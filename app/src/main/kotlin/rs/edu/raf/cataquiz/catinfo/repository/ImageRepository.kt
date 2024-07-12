@@ -15,7 +15,7 @@ class ImageRepository @Inject constructor(
         database.imageDao().upsertImages(images = images.map { it.asImageDbModel(catId = catId) })
     }
 
-    suspend fun observeCatImages(catId: String) = database.imageDao().observeImages(catId = catId)
+    fun observeCatImages(catId: String) = database.imageDao().observeImages(catId = catId)
 
     suspend fun getImages(catId: String) = database.imageDao().getImages(catId = catId)
 }

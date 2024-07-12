@@ -12,4 +12,9 @@ data class QuizResult(
     val timestamp: Long = Instant.now().toEpochMilli(),
     // for some reason, must be at the end...
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-)
+
+) {
+    companion object {
+        val EMPTY = QuizResult("", 0.0)
+    }
+}

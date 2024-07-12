@@ -3,7 +3,6 @@ package rs.edu.raf.cataquiz.catinfo.db.cat
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import rs.edu.raf.cataquiz.catinfo.api.model.Image
 import rs.edu.raf.cataquiz.catinfo.api.model.Weight
 
 @Entity

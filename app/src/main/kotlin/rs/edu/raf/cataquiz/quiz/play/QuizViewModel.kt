@@ -11,10 +11,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.profile.ProfileStore
-import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizEvent
-import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizEvent.*
+import rs.edu.raf.cataquiz.quiz.MaxTime
+import rs.edu.raf.cataquiz.quiz.QuizContract.QuizEvent
+import rs.edu.raf.cataquiz.quiz.QuizContract.QuizEvent.*
 
-import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizState
+import rs.edu.raf.cataquiz.quiz.QuizContract.QuizState
 import rs.edu.raf.cataquiz.quiz.db.QuizResult
 import javax.inject.Inject
 
@@ -24,8 +25,7 @@ class QuizViewModel @Inject constructor(
     private val quizRepository: QuizRepository,
     private val profileStore: ProfileStore,
 ) : ViewModel() {
-    // TODO: Change this to 300
-    private val _state = MutableStateFlow(QuizState(timeLeft = 5))
+    private val _state = MutableStateFlow(QuizState())
     val state = _state.asStateFlow()
 
     private fun setState(reducer: QuizState.() -> QuizState) = _state.update(reducer)
