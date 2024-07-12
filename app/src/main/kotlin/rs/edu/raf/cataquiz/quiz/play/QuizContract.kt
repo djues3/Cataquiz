@@ -1,4 +1,4 @@
-package rs.edu.raf.cataquiz.quiz
+package rs.edu.raf.cataquiz.quiz.play
 
 import rs.edu.raf.cataquiz.quiz.model.Question
 

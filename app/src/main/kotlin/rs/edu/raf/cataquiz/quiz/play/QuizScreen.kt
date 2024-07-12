@@ -33,10 +33,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import coil.compose.SubcomposeAsyncImage
-import rs.edu.raf.cataquiz.quiz.MaxTime
-import rs.edu.raf.cataquiz.quiz.QuizContract
-import rs.edu.raf.cataquiz.quiz.QuizContract.QuizEvent.TimeUp
 import rs.edu.raf.cataquiz.quiz.model.questionText
+import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizEvent.TimeUp
 import rs.edu.raf.cataquiz.ui.theme.EnableEdgeToEdge
 
 fun NavGraphBuilder.quiz(
@@ -98,9 +96,7 @@ fun QuizScreen(
 
                 if (timeLeft <= 0) {
                     viewModel.setEvent(TimeUp)
-                    navController.navigate("results") {
-                        popUpTo("quiz") { inclusive = true }
-                    }
+                    onNavigateToResults()
                 }
 
                 val color by animateColorAsState(
@@ -162,9 +158,9 @@ fun QuizScreen(
                     text = { Text("Are you sure you want to quit the quiz?") },
                     confirmButton = {
                         Button(onClick = {
-                            showQuitDialog = false
-                            viewModel.setEvent(QuizContract.QuizEvent.QuizFinished)
-                            onNavigateToResults()
+                            navController.navigate("cats") {
+                                popUpTo("quiz") { inclusive = true }
+                            }
                         }) {
                             Text("Yes")
                         }

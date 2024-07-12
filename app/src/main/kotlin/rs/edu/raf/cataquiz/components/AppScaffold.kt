@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToCatList
+import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToLeaderboard
 import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToQuiz
 import rs.edu.raf.cataquiz.profile.Profile
 import rs.edu.raf.cataquiz.ui.theme.Typography
@@ -66,7 +68,10 @@ fun AppScaffold(
             },
             onQuizClick = {
                 navController.navigateToQuiz()
-            }
+            },
+            onLeaderboardClick = {
+                navController.navigateToLeaderboard()
+            },
         )
     }) {
         Scaffold(topBar = {
@@ -91,6 +96,7 @@ fun DrawerContent(
     onBreedClick: () -> Unit,
     onProfileClick: () -> Unit,
     onQuizClick: () -> Unit,
+    onLeaderboardClick: () -> Unit,
 ) {
     BoxWithConstraints {
         ModalDrawerSheet(modifier = Modifier.width(maxWidth * 1 / 2)) {
@@ -119,7 +125,11 @@ fun DrawerContent(
                     text = "Play quiz",
                     onClick = onQuizClick,
                 )
-
+                AppDrawerActionItem(
+                    icon = Icons.AutoMirrored.Filled.List,
+                    text = "Leaderboard",
+                    onClick = onLeaderboardClick,
+                )
 
                 AppDrawerActionItem(
                     icon = Icons.Default.Person,
@@ -138,16 +148,10 @@ private fun AppDrawerActionItem(
     text: String,
     onClick: (() -> Unit)? = null,
 ) {
-    ListItem(
-        modifier = Modifier.clickable(
-            enabled = onClick != null,
-            onClick = { onClick?.invoke() }
-        ),
-        leadingContent = {
-            Icon(imageVector = icon, contentDescription = null)
-        },
-        headlineContent = {
-            Text(text = text)
-        }
-    )
+    ListItem(modifier = Modifier.clickable(enabled = onClick != null,
+        onClick = { onClick?.invoke() }), leadingContent = {
+        Icon(imageVector = icon, contentDescription = null)
+    }, headlineContent = {
+        Text(text = text)
+    })
 }

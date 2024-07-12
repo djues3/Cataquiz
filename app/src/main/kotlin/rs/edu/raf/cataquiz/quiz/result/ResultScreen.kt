@@ -61,7 +61,7 @@ fun ResultScreen(navController: NavHostController, viewModel: ResultViewModel, s
 
             Button(onClick = {
                     viewModel.setEvent(SendResult)
-
+                    navController.navigate("cats")
             }) {
                 Text("Submit Score to Leaderboard")
             }

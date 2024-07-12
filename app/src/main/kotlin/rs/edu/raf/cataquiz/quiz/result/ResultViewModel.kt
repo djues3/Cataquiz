@@ -57,10 +57,10 @@ class ResultViewModel @Inject constructor(
 
     private fun sendResult() {
         viewModelScope.launch {
+            setState { copy(isError = false, errorMessage = "") }
             val quizResult = state.value.quizResult
             try {
                 quizRepository.sendQuizResult(quizResult.asSendQuizResult())
-                setState { copy(isError = true) }
             } catch (e: Exception) {
                 setState { copy(isError = true, errorMessage = e.message ?: "Unknown error") }
             }

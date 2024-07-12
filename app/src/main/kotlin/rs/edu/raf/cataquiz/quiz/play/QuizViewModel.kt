@@ -11,11 +11,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.profile.ProfileStore
-import rs.edu.raf.cataquiz.quiz.MaxTime
-import rs.edu.raf.cataquiz.quiz.QuizContract.QuizEvent
-import rs.edu.raf.cataquiz.quiz.QuizContract.QuizEvent.*
+import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizEvent
+import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizEvent.*
 
-import rs.edu.raf.cataquiz.quiz.QuizContract.QuizState
+import rs.edu.raf.cataquiz.quiz.play.QuizContract.QuizState
 import rs.edu.raf.cataquiz.quiz.db.QuizResult
 import javax.inject.Inject
 

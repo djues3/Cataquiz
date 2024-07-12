@@ -17,6 +17,7 @@ import rs.edu.raf.cataquiz.catinfo.detail.catDetail
 import rs.edu.raf.cataquiz.catinfo.list.catList
 import rs.edu.raf.cataquiz.profile.ProfileStore
 import rs.edu.raf.cataquiz.profile.create.createProfile
+import rs.edu.raf.cataquiz.quiz.leaderboard.leaderboard
 import rs.edu.raf.cataquiz.quiz.play.quiz
 import rs.edu.raf.cataquiz.quiz.result.results
 
@@ -60,9 +61,12 @@ fun CataquizNavigation(
                 popUpTo("quiz") { inclusive = true }
             }
         }, onNavigateToResults = {
-            navController.navigate("results")
+            navController.navigate("results") {
+                popUpTo("quiz") { inclusive = true }
+            }
         }, navController = navController)
         results(route = "results", navController = navController)
+        leaderboard(route = "leaderboard", navController = navController)
     }
 }
 
@@ -76,6 +80,7 @@ sealed class Screen(val route: String) {
     }
 
     data object Quiz : Screen("quiz")
+    data object Leaderboard : Screen("leaderboard")
 }
 
 object NavigationActions {
@@ -89,5 +94,8 @@ object NavigationActions {
 
     fun NavController.navigateToQuiz() {
         navigate(Screen.Quiz.route)
+    }
+    fun NavController.navigateToLeaderboard() {
+        navigate(Screen.Leaderboard.route)
     }
 }

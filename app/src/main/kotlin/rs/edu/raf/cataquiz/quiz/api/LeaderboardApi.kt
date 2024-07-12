@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface LeaderboardApi {
-    @GET("leadboard?category=1")
+    @GET("leaderboard?category=1")
     suspend fun getLeaderboard(): List<LeaderboardEntry>
 
     @POST("leaderboard")
