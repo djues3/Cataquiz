@@ -1,7 +1,13 @@
 package rs.edu.raf.cataquiz.quiz.result
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +22,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import rs.edu.raf.cataquiz.components.AppScaffold
+import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToCatList
 import rs.edu.raf.cataquiz.quiz.result.ResultContract.ResultEvent.SendResult
 import rs.edu.raf.cataquiz.quiz.result.ResultContract.ResultState
 
@@ -60,10 +67,21 @@ fun ResultScreen(navController: NavHostController, viewModel: ResultViewModel, s
             }
 
             Button(onClick = {
-                    viewModel.setEvent(SendResult)
-                    navController.navigate("cats")
+                viewModel.setEvent(SendResult)
+                navController.navigate("cats")
             }) {
                 Text("Submit Score to Leaderboard")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    navController.navigateToCatList()
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+
+                ) {
+                Text("Go back...")
             }
         }
     }
