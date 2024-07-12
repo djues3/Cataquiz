@@ -1,6 +1,7 @@
 package rs.edu.raf.cataquiz.quiz.leaderboard
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -43,9 +44,12 @@ fun LeaderboardScreen(
                 items(entries.size) { index ->
                     val uiModel = entries[index]
                     Column(modifier = Modifier.padding(16.dp)) {
+                        Row {
+                            Text("Category: ${uiModel.category}", modifier = Modifier.padding(end = 8.dp))
+                            Text("Position: ${index + 1}")
+                        }
                         Text("Username: ${uiModel.username}")
                         Text("Total Games: ${uiModel.totalGames}")
-                        Text("Category: ${uiModel.category}")
                         Text("Score: ${uiModel.score}")
                     }
                     HorizontalDivider()

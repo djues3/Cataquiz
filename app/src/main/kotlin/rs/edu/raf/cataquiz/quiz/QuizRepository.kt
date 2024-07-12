@@ -1,8 +1,8 @@
-package rs.edu.raf.cataquiz.quiz.play
+package rs.edu.raf.cataquiz.quiz
 
-import android.util.Log
 import rs.edu.raf.cataquiz.db.AppDatabase
 import rs.edu.raf.cataquiz.quiz.api.LeaderboardApi
+import rs.edu.raf.cataquiz.quiz.api.LeaderboardEntry
 import rs.edu.raf.cataquiz.quiz.api.QuizResultResponse
 import rs.edu.raf.cataquiz.quiz.api.QuizResultSend
 import rs.edu.raf.cataquiz.quiz.db.QuizResult
@@ -13,18 +13,27 @@ class QuizRepository @Inject constructor(
     private val leaderboardApi: LeaderboardApi,
 ) {
     suspend fun saveQuizResult(quizResult: QuizResult) {
-        Log.d("QuizRepository", "Saving quiz result")
-        Log.d("QuizRepository", "Result: $quizResult")
         database.quizResultDao().insertQuizResult(quizResult)
     }
 
-suspend fun sendQuizResult(quizResult: QuizResultSend): QuizResultResponse {
-        Log.d("QuizRepository", "Sending quiz result")
-        Log.d("QuizRepository", "Result: $quizResult")
+    suspend fun sendQuizResult(quizResult: QuizResultSend): QuizResultResponse {
         return leaderboardApi.sendQuizResult(quizResult)
     }
 
     fun getLatestQuizResult(): QuizResult {
         return database.quizResultDao().getLatestQuizResult()
     }
+
+    fun getResults(username: String): List<QuizResult> {
+        return database.quizResultDao().getResults(username)
+    }
+
+    suspend fun getGlobalPbForUser(username: String): LeaderboardEntry? {
+        return leaderboardApi.getLeaderboard().find { it.username == username }
+    }
+
+    fun getLocalPbForUser(username: String): QuizResult? {
+        return database.quizResultDao().getResults(username).maxByOrNull { it.score }
+    }
+
 }

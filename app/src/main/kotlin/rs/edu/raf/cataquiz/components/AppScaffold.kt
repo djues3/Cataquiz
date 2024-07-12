@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,6 +39,7 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToCatList
 import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToLeaderboard
+import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToProfile
 import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToQuiz
 import rs.edu.raf.cataquiz.profile.Profile
 import rs.edu.raf.cataquiz.ui.theme.Typography
@@ -48,6 +50,7 @@ fun AppScaffold(
     title: String,
     profile: Profile,
     navController: NavHostController,
+    actions: @Composable RowScope.() -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     val uiScope = rememberCoroutineScope()
@@ -63,8 +66,7 @@ fun AppScaffold(
                 navController.navigateToCatList()
             },
             onProfileClick = {
-                // TODO: navigate to profile
-                navController.navigateToCatList()
+                navController.navigateToProfile()
             },
             onQuizClick = {
                 navController.navigateToQuiz()
@@ -81,7 +83,7 @@ fun AppScaffold(
                 }) {
                     Icon(Icons.Default.Menu, contentDescription = "Open drawer")
                 }
-            })
+            }, actions = actions)
         }) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
                 content()

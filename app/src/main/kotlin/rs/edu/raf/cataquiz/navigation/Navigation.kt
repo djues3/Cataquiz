@@ -17,6 +17,7 @@ import rs.edu.raf.cataquiz.catinfo.detail.catDetail
 import rs.edu.raf.cataquiz.catinfo.list.catList
 import rs.edu.raf.cataquiz.profile.ProfileStore
 import rs.edu.raf.cataquiz.profile.create.createProfile
+import rs.edu.raf.cataquiz.profile.details.profile
 import rs.edu.raf.cataquiz.quiz.leaderboard.leaderboard
 import rs.edu.raf.cataquiz.quiz.play.quiz
 import rs.edu.raf.cataquiz.quiz.result.results
@@ -38,7 +39,7 @@ fun CataquizNavigation(
         exitTransition = { scaleOut(targetScale = 0.75f) },
         popEnterTransition = { scaleIn(initialScale = 0.75f) },
         popExitTransition = { slideOutHorizontally { it } },
-        startDestination = if (isEmpty) "createProfile" else "cats"
+        startDestination = if (isEmpty) "createProfile" else "profile"
     ) {
         catList(
             "cats", onBreedClick = {
@@ -67,35 +68,37 @@ fun CataquizNavigation(
         }, navController = navController)
         results(route = "results", navController = navController)
         leaderboard(route = "leaderboard", navController = navController)
+        profile(route = "profile", navController = navController)
     }
 }
 
 inline val SavedStateHandle.catId: String
     get() = checkNotNull(get("catId")) { "catId is mandatory" }
-
-sealed class Screen(val route: String) {
-    data object CatList : Screen("cats")
-    data object CatDetail : Screen("cats/{catId}") {
-        fun createRoute(catId: String) = "cats/$catId"
-    }
-
-    data object Quiz : Screen("quiz")
-    data object Leaderboard : Screen("leaderboard")
+/**
+ * Stores the routes used by screens which have the application drawer.
+ * */
+sealed class Routes(val route: String) {
+    data object CatList : Routes("cats")
+    data object Quiz : Routes("quiz")
+    data object Leaderboard : Routes("leaderboard")
+    data object Profile : Routes("profile")
 }
 
 object NavigationActions {
-    fun NavController.navigateToCatDetail(catId: String) {
-        navigate(Screen.CatDetail.createRoute(catId))
-    }
 
     fun NavController.navigateToCatList() {
-        navigate(Screen.CatList.route)
+        navigate(Routes.CatList.route)
     }
 
     fun NavController.navigateToQuiz() {
-        navigate(Screen.Quiz.route)
+        navigate(Routes.Quiz.route)
     }
+
     fun NavController.navigateToLeaderboard() {
-        navigate(Screen.Leaderboard.route)
+        navigate(Routes.Leaderboard.route)
+    }
+
+    fun NavController.navigateToProfile() {
+        navigate(Routes.Profile.route)
     }
 }

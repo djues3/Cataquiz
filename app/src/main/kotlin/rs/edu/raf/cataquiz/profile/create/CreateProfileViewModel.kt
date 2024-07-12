@@ -30,8 +30,16 @@ class CreateProfileViewModel @Inject constructor(
 
 
     init {
+        getProfile()
         observeProfile()
         observeEvents()
+    }
+
+    private fun getProfile() {
+        viewModelScope.launch {
+            val profile = profileStore.getProfile()
+            setState { copy(profile = if (profile == Profile.EMPTY) ProfileUiModel.EMPTY else profile.asProfileUiModel()) }
+        }
     }
 
     /**
@@ -90,6 +98,14 @@ class CreateProfileViewModel @Inject constructor(
         }
     }
 
+}
+
+private fun Profile.asProfileUiModel(): ProfileUiModel {
+    return ProfileUiModel(
+        nickname = this.nickname,
+        fullName = this.fullName,
+        email = this.email,
+    )
 }
 
 private fun ProfileUiModel.asProfile(): Profile {

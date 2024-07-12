@@ -22,4 +22,7 @@ interface QuizResultDao {
 
     @Query("SELECT * FROM QuizResult ORDER BY timestamp DESC LIMIT 1")
     fun getLatestQuizResult(): QuizResult
+
+    @Query("SELECT * FROM QuizResult WHERE username = :username")
+    fun getResults(username: String): List<QuizResult>
 }

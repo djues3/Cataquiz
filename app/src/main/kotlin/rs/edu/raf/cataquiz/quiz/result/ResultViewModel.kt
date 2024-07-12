@@ -13,7 +13,7 @@ import rs.edu.raf.cataquiz.profile.Profile
 import rs.edu.raf.cataquiz.profile.ProfileStore
 import rs.edu.raf.cataquiz.quiz.api.QuizResultSend
 import rs.edu.raf.cataquiz.quiz.db.QuizResult
-import rs.edu.raf.cataquiz.quiz.play.QuizRepository
+import rs.edu.raf.cataquiz.quiz.QuizRepository
 import rs.edu.raf.cataquiz.quiz.result.ResultContract.ResultEvent
 import rs.edu.raf.cataquiz.quiz.result.ResultContract.ResultEvent.SendResult
 import rs.edu.raf.cataquiz.quiz.result.ResultContract.ResultState

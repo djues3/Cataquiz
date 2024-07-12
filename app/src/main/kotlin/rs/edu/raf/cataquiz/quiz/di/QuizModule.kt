@@ -8,7 +8,7 @@ import rs.edu.raf.cataquiz.catinfo.repository.CatRepository
 import rs.edu.raf.cataquiz.db.AppDatabase
 import rs.edu.raf.cataquiz.quiz.api.LeaderboardApi
 import rs.edu.raf.cataquiz.quiz.play.QuestionGenerator
-import rs.edu.raf.cataquiz.quiz.play.QuizRepository
+import rs.edu.raf.cataquiz.quiz.QuizRepository
 import rs.edu.raf.cataquiz.quiz.play.QuizUseCase
 import javax.inject.Singleton
 

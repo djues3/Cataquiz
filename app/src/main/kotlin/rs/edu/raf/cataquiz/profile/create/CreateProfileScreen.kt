@@ -116,7 +116,7 @@ fun CreateProfileScreen(
                 modifier = Modifier.padding(paddingValues),
                 content = {
                     Text(
-                        text = "Create profile",
+                        text = "Save profile",
                     )
                 },
                 enabled = state.isValid() && state.profile != ProfileUiModel.EMPTY
