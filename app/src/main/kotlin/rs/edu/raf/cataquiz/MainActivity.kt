@@ -12,37 +12,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import rs.edu.raf.cataquiz.navigation.CataquizNavigation
+import rs.edu.raf.cataquiz.profile.ProfileStore
 import rs.edu.raf.cataquiz.ui.theme.CataquizTheme
+import javax.inject.Inject
+
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity: ComponentActivity() {
+    // Used to check if the user is logged in
+    @Inject lateinit var profileStore: ProfileStore
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             CataquizTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                CataquizNavigation(profileStore = profileStore)
             }
+
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CataquizTheme {
-        Greeting("Android")
     }
 }
