@@ -13,6 +13,7 @@ val Neutral200 = Color(0xFFE5E5E5)
 val Neutral800 = Color(0xFF262626)
 val Neutral950 = Color(0xFF0A0A0A)
 val Red500 = Color(0xFFEF4444)
+val Red700 = Color(0xFFB91C1C)
 val Red800 = Color(0xFF991B1B)
 val Indigo900= Color(0xFF312E81)
 

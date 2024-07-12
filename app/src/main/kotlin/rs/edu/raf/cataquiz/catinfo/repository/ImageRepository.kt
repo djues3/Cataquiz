@@ -20,7 +20,7 @@ class ImageRepository @Inject constructor(
     suspend fun getImages(catId: String) = database.imageDao().getImages(catId = catId)
 }
 
-private fun ImageApiModel.asImageDbModel(catId: String) = ImageDbModel(
+fun ImageApiModel.asImageDbModel(catId: String) = ImageDbModel(
     id = this.imageId,
     width = this.width,
     height = this.height,

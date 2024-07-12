@@ -10,7 +10,6 @@ import rs.edu.raf.cataquiz.catinfo.api.model.Weight
 data class Cat(
     @PrimaryKey val id: String,
     @Embedded val weight: Weight,
-    @Embedded val image: Image?,
     val name: String,
     val temperament: String,
     val origin: String,

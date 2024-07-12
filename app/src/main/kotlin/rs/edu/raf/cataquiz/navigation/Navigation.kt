@@ -17,6 +17,7 @@ import rs.edu.raf.cataquiz.catinfo.detail.catDetail
 import rs.edu.raf.cataquiz.catinfo.list.catList
 import rs.edu.raf.cataquiz.profile.ProfileStore
 import rs.edu.raf.cataquiz.profile.create.createProfile
+import rs.edu.raf.cataquiz.quiz.play.quiz
 
 @Composable
 fun CataquizNavigation(
@@ -53,6 +54,14 @@ fun CataquizNavigation(
                 popUpTo("createProfile") { inclusive = true }
             }
         })
+        quiz(route = "quiz", onQuizFinished = {
+            navController.navigate("results") {
+                popUpTo("quiz") { inclusive = true }
+            }
+        }, onNavigateToResults = {
+            navController.navigate("results")
+        }, navController = navController)
+
     }
 }
 
@@ -64,6 +73,8 @@ sealed class Screen(val route: String) {
     data object CatDetail : Screen("cats/{catId}") {
         fun createRoute(catId: String) = "cats/$catId"
     }
+
+    data object Quiz : Screen("quiz")
 }
 
 object NavigationActions {
@@ -73,6 +84,10 @@ object NavigationActions {
 
     fun NavController.navigateToCatList() {
         navigate(Screen.CatList.route)
+    }
+
+    fun NavController.navigateToQuiz() {
+        navigate(Screen.Quiz.route)
     }
 
     fun NavController.navigateUp() {

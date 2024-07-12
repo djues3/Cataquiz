@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToCatList
+import rs.edu.raf.cataquiz.navigation.NavigationActions.navigateToQuiz
 import rs.edu.raf.cataquiz.profile.Profile
 import rs.edu.raf.cataquiz.ui.theme.Typography
 
@@ -62,6 +64,9 @@ fun AppScaffold(
                 // TODO: navigate to profile
                 navController.navigateToCatList()
             },
+            onQuizClick = {
+                navController.navigateToQuiz()
+            }
         )
     }) {
         Scaffold(topBar = {
@@ -85,6 +90,7 @@ fun DrawerContent(
     profile: Profile,
     onBreedClick: () -> Unit,
     onProfileClick: () -> Unit,
+    onQuizClick: () -> Unit,
 ) {
     BoxWithConstraints {
         ModalDrawerSheet(modifier = Modifier.width(maxWidth * 1 / 2)) {
@@ -104,15 +110,23 @@ fun DrawerContent(
             }
             Column(modifier = Modifier.fillMaxSize()) {
                 AppDrawerActionItem(
-                    icon = Icons.Default.Person,
-                    text = "Profile",
-                    onClick = onProfileClick,
-                )
-                AppDrawerActionItem(
                     icon = Icons.Filled.Search,
                     text = "Search",
                     onClick = onBreedClick,
                 )
+                AppDrawerActionItem(
+                    icon = Icons.Default.PlayArrow,
+                    text = "Play quiz",
+                    onClick = onQuizClick,
+                )
+
+
+                AppDrawerActionItem(
+                    icon = Icons.Default.Person,
+                    text = "Profile",
+                    onClick = onProfileClick,
+                )
+
             }
         }
     }

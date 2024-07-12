@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.catinfo.db.cat.Cat
+import rs.edu.raf.cataquiz.catinfo.db.cat.CatWithImages
 import rs.edu.raf.cataquiz.catinfo.db.image.Image
 import rs.edu.raf.cataquiz.catinfo.detail.CatDetailContract.*
 import rs.edu.raf.cataquiz.catinfo.detail.model.CatDetailUiModel
@@ -16,8 +17,6 @@ import rs.edu.raf.cataquiz.catinfo.detail.model.ImageUIModel
 import rs.edu.raf.cataquiz.catinfo.repository.CatRepository
 import rs.edu.raf.cataquiz.catinfo.repository.ImageRepository
 import rs.edu.raf.cataquiz.navigation.catId
-import rs.edu.raf.cataquiz.profile.Profile
-import rs.edu.raf.cataquiz.profile.ProfileStore
 import javax.inject.Inject
 
 
@@ -26,7 +25,6 @@ class CatDetailViewModel @Inject constructor(
     private val handle: SavedStateHandle,
     private val catRepository: CatRepository,
     private val imageRepository: ImageRepository,
-    private val profileStore: ProfileStore,
 ) : ViewModel() {
     private val _state = MutableStateFlow(CatDetailUiState(breedId = handle.catId))
     val state = _state.asStateFlow()
@@ -55,7 +53,7 @@ class CatDetailViewModel @Inject constructor(
         viewModelScope.launch {
             setState { copy(loading = true) }
             try {
-                val cat = catRepository.getCat(catId = handle.catId)
+                val cat = catRepository.getCatWithImages(catId = handle.catId)
                 val c = cat.asCatDetailUiModel()
                 setState { copy(data = c) }
             } catch (_: Exception) {
@@ -91,6 +89,33 @@ class CatDetailViewModel @Inject constructor(
             images = images.map { it.asImageUiModel() })
     }
 
+}
+
+private fun CatWithImages.asCatDetailUiModel(): CatDetailUiModel {
+    return CatDetailUiModel(
+        id = this.cat.id,
+        name = this.cat.name,
+        description = this.cat.description,
+        temperament = this.cat.temperament.split(","),
+        countriesOfOrigin = this.cat.countryCodes.split(" "),
+        lifeSpan = this.cat.lifeSpan,
+        averageWeight = this.cat.weight.metric,
+        adaptability = this.cat.adaptability,
+        affectionLevel = this.cat.affectionLevel,
+        childFriendly = this.cat.childFriendly,
+        dogFriendly = this.cat.dogFriendly,
+        energyLevel = this.cat.energyLevel,
+        grooming = this.cat.grooming,
+        healthIssues = this.cat.healthIssues,
+        intelligence = this.cat.intelligence,
+        sheddingLevel = this.cat.sheddingLevel,
+        socialNeeds = this.cat.socialNeeds,
+        strangerFriendly = this.cat.strangerFriendly,
+        vocalisation = this.cat.vocalisation,
+        isRare = this.cat.rare == 1,
+        wikipediaUrl = this.cat.wikipediaUrl,
+        images = this.images.map { it.asImageUiModel() }
+    )
 }
 
 private fun Image.asImageUiModel(): ImageUIModel {

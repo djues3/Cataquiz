@@ -14,7 +14,6 @@ fun BreedApiModel.asCatDbModel(): Cat {
     return Cat(
         id = this.breedId,
         weight = this.weight,
-        image = this.image,
         name = this.name,
         temperament = this.temperament,
         origin = this.origin,

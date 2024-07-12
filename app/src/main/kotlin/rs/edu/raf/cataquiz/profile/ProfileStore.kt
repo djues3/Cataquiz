@@ -34,5 +34,4 @@ class ProfileStore @Inject constructor(
     fun isEmpty(): Boolean {
         return data.value == Profile.EMPTY
     }
-
 }

@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import rs.edu.raf.cataquiz.catinfo.db.cat.Cat
-import rs.edu.raf.cataquiz.catinfo.list.CatListContract.*
+import rs.edu.raf.cataquiz.catinfo.list.CatListContract.BreedListEvent
+import rs.edu.raf.cataquiz.catinfo.list.CatListContract.BreedListState
 import rs.edu.raf.cataquiz.catinfo.list.model.CatUiModel
 import rs.edu.raf.cataquiz.catinfo.repository.CatRepository
 import rs.edu.raf.cataquiz.profile.Profile
@@ -23,7 +24,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class CatListViewModel @Inject constructor(
-    val profileStore: ProfileStore,
+    private val profileStore: ProfileStore,
     private val repository: CatRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(BreedListState())
@@ -90,7 +91,7 @@ class CatListViewModel @Inject constructor(
 
 }
 
-private fun Cat.asCatUiModel(): CatUiModel {
+private fun Cat.asCatUiModel() : CatUiModel {
     return CatUiModel(
         id = this.id,
         name = this.name,
