@@ -16,6 +16,8 @@ import rs.edu.raf.cataquiz.catinfo.detail.model.ImageUIModel
 import rs.edu.raf.cataquiz.catinfo.repository.CatRepository
 import rs.edu.raf.cataquiz.catinfo.repository.ImageRepository
 import rs.edu.raf.cataquiz.navigation.catId
+import rs.edu.raf.cataquiz.profile.Profile
+import rs.edu.raf.cataquiz.profile.ProfileStore
 import javax.inject.Inject
 
 
@@ -24,6 +26,7 @@ class CatDetailViewModel @Inject constructor(
     private val handle: SavedStateHandle,
     private val catRepository: CatRepository,
     private val imageRepository: ImageRepository,
+    private val profileStore: ProfileStore,
 ) : ViewModel() {
     private val _state = MutableStateFlow(CatDetailUiState(breedId = handle.catId))
     val state = _state.asStateFlow()
@@ -87,6 +90,7 @@ class CatDetailViewModel @Inject constructor(
             wikipediaUrl = this.wikipediaUrl,
             images = images.map { it.asImageUiModel() })
     }
+
 }
 
 private fun Image.asImageUiModel(): ImageUIModel {

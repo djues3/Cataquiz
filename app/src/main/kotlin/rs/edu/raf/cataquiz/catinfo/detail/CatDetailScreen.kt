@@ -1,7 +1,5 @@
 package rs.edu.raf.cataquiz.catinfo.detail
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -76,8 +74,6 @@ fun NavGraphBuilder.catDetail(
     val viewModel: CatDetailViewModel = hiltViewModel<CatDetailViewModel>(navBackStackEntry)
     val state = viewModel.state.collectAsState()
     CatDetailScreen(state = state.value, onClose = onClose)
-
-
 }
 
 @ExperimentalMaterial3Api
@@ -134,7 +130,9 @@ fun CatDetailScreen(
         },
     ) { innerPadding ->
         Box(
-            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             contentAlignment = Alignment.Center,
         ) {
             if (state.loading) {
@@ -281,10 +279,7 @@ fun Carousel(images: List<ImageUIModel>, modifier: Modifier = Modifier) {
                 .requiredHeight(300.dp)
                 .graphicsLayer {
                     lerp(
-                        start = 0.65f,
-                        stop = 1f,
-                        fraction = abs(offset)
-                            .coerceIn(0f, 1f)
+                        start = 0.65f, stop = 1f, fraction = abs(offset).coerceIn(0f, 1f)
                     )
                     // Change the alpha of the page depending on its position
                     alpha = lerp(

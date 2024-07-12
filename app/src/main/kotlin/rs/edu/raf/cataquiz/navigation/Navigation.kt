@@ -5,17 +5,11 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import kotlinx.coroutines.runBlocking
@@ -43,19 +37,19 @@ fun CataquizNavigation(
         popExitTransition = { slideOutHorizontally { it } },
         startDestination = if (isEmpty) "createProfile" else "cats"
     ) {
-        catList("cats", onBreedClick = {
-            navController.navigate(route = "cats/$it")
-        })
-        catDetail("cats/{catId}", arguments = listOf(
-            navArgument(name = "catId") {
-                nullable = false
-                type = NavType.StringType
-            }
-        ), onClose = {
+        catList(
+            "cats", onBreedClick = {
+                navController.navigate(route = "cats/$it")
+            }, navController = navController
+        )
+        catDetail("cats/{catId}", arguments = listOf(navArgument(name = "catId") {
+            nullable = false
+            type = NavType.StringType
+        }), onClose = {
             navController.navigateUp()
         })
         createProfile("createProfile", onProfileCreated = {
-            navController.navigate("start") {
+            navController.navigate("cats") {
                 popUpTo("createProfile") { inclusive = true }
             }
         })
@@ -64,3 +58,24 @@ fun CataquizNavigation(
 
 inline val SavedStateHandle.catId: String
     get() = checkNotNull(get("catId")) { "catId is mandatory" }
+
+sealed class Screen(val route: String) {
+    data object CatList : Screen("cats")
+    data object CatDetail : Screen("cats/{catId}") {
+        fun createRoute(catId: String) = "cats/$catId"
+    }
+}
+
+object NavigationActions {
+    fun NavController.navigateToCatDetail(catId: String) {
+        navigate(Screen.CatDetail.createRoute(catId))
+    }
+
+    fun NavController.navigateToCatList() {
+        navigate(Screen.CatList.route)
+    }
+
+    fun NavController.navigateUp() {
+        this.navigateUp()
+    }
+}
