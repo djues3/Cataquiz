@@ -16,8 +16,8 @@ enum class QuestionType {
 
 inline val Question.questionText: String
     get() = when (questionType) {
-        QuestionType.BREED_IDENTIFICATION -> "What is the breed of this cat?"
-        QuestionType.TEMPERAMENT_INTRUDER -> "What is the temperament of this cat?"
-        QuestionType.TEMPERAMENT_MATCH -> "What is the temperament of this cat?"
+        QuestionType.BREED_IDENTIFICATION -> "What breed is this?"
+        QuestionType.TEMPERAMENT_INTRUDER -> "Remove the intruder"
+        QuestionType.TEMPERAMENT_MATCH -> "Match the temperament"
     }
 
