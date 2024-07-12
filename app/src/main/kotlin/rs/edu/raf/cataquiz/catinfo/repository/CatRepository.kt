@@ -46,5 +46,7 @@ class CatRepository @Inject constructor(
     suspend fun getRandomCatWithImage(): CatWithImages =
         database.catDao().getRandomCatsWithImages(limit = 1).first()
 
+    fun observeCatWithImage(catId: String) = database.catDao().observeCatWithImage(catId = catId)
+
 }
 

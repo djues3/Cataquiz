@@ -40,6 +40,10 @@ interface CatDao {
     @Query("SELECT * FROM Cat ORDER BY RANDOM() LIMIT :limit")
     suspend fun getRandomCatsWithImages(limit: Int): List<CatWithImages>
 
+    @Transaction
+    @Query("SELECT * FROM Cat WHERE id = :catId")
+    fun observeCatWithImage(catId: String): Flow<CatWithImages>
+
     /**
      * Used for quiz generation
      * */
